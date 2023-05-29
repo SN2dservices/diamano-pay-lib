@@ -1,4 +1,4 @@
-# WAVE API
+# Diamano pay lib
 
 Cette librairie a pour objectif de simplifier l'accès à la plateforme de paiement Diamano pay.
 
