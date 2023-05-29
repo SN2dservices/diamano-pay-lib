@@ -1,29 +1,35 @@
-import axios, { Axios } from 'axios';
-import { AxiosConfig } from './axios-config';
 import { Api } from './api';
+import { DiamanoPayAPI } from './diamano-pay';
 import { Page } from './page';
+import { PaymentServiceTypeEnum } from './enum';
+import {
+  AuthBody,
+  CardPaymentRequestBody,
+  OneStepPaymentRequestBodyDto,
+  OneStepPaymentResponseDto,
+  OrangeMoneyQrCodeResponseDto,
+  PaymentTokenBody,
+  PaymentTokenResponse,
+  QrCodePaymentRequestBody,
+  StripeResponseDto,
+  TokenResponse,
+  WaveQrCodeResponseDto,
+} from './type';
 
-export class DiamanoPayAPI {
-  private _axios: Axios;
-  private constructor() {}
-  static async init(
-    clientSecret: string,
-    clientId: string,
-    production: boolean,
-  ) {
-    const diamanoPayAPI = new DiamanoPayAPI();
-    const axiosConfig = await AxiosConfig.init(
-      clientSecret,
-      clientId,
-      production,
-    );
-    diamanoPayAPI._axios = axiosConfig.getAxios();
-    return diamanoPayAPI;
-  }
-  newApi() {
-    return new Api(this._axios);
-  }
-  newPage() {
-    return new Page(this._axios);
-  }
-}
+export {
+  Api,
+  DiamanoPayAPI,
+  Page,
+  PaymentServiceTypeEnum,
+  AuthBody,
+  CardPaymentRequestBody,
+  OneStepPaymentRequestBodyDto,
+  OneStepPaymentResponseDto,
+  OrangeMoneyQrCodeResponseDto,
+  PaymentTokenBody,
+  PaymentTokenResponse,
+  QrCodePaymentRequestBody,
+  StripeResponseDto,
+  TokenResponse,
+  WaveQrCodeResponseDto,
+};

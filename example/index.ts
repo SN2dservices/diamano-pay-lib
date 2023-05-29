@@ -1,4 +1,4 @@
-import { DiamanoPayAPI } from '../src';
+import { DiamanoPayAPI } from '../src/diamano-pay';
 import { Api } from '../src/api';
 import { Page } from '../src/page';
 import {
@@ -9,8 +9,9 @@ import {
 } from '../src/type';
 
 class Example {
-  private clientId = process.env.CLIENT_ID;
-  private clientSecret = process.env.CLIENT_SECRET;
+  private clientId = 'ci_test_diamano_pay_sn_e60e0e9d6dcd4d3f9c5c7accf113aea3';
+  private clientSecret =
+    'cs_test_diamano_pay_sn_08e95bf31a16401f82b2cd66ca7521ff';
   private api: Api;
   private page: Page;
   private prod = false;

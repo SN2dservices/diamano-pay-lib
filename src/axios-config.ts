@@ -19,7 +19,7 @@ const globalConfig: RetryConfig = {
 export class AxiosConfig {
   customAxios: Axios;
   token: TokenResponse;
-  TOKEN_PATH = 'oauth/token';
+  TOKEN_PATH = 'oauth2/token';
   private constructor(
     private clientSecret: string,
     private clientId: string,
@@ -56,6 +56,10 @@ export class AxiosConfig {
         return config;
       },
       (error) => {
+        console.log(
+          'Error during requesting the server ',
+          error?.response?.data,
+        );
         Promise.reject(error?.response?.data);
       },
     );
@@ -67,6 +71,7 @@ export class AxiosConfig {
         return response;
       },
       (error: AxiosError) => {
+        console.log('Error from server response', error?.response?.data);
         const config: RetryConfig = error.config as RetryConfig;
         if (!config || !config.retry) {
           return Promise.reject(error?.response?.data);
@@ -75,7 +80,11 @@ export class AxiosConfig {
         const delayRetryRequest = new Promise<void>((resolve) => {
           setTimeout(async () => {
             if (error.response.status === 401) {
-              await this.getToken();
+              try {
+                await this.getToken();
+              } catch (error) {
+                console.log('An error occur while getting token ', error);
+              }
             }
             resolve();
           }, config.retryDelay || 1000);

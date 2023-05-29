@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",                          
-    "outDir": "dist",                   
+    "outDir": "dist",
     "esModuleInterop": true,
     "declaration":  true,
     "declarationDir": "dist",
     "moduleResolution": "Node",
-    "lib": ["es2015", "DOM"]                   
-     }
+    "lib": ["es2015", "DOM"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "__tests__"]                   
 }
