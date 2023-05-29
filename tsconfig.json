@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",                          
+    "outDir": "dist",                   
+    "esModuleInterop": true,
+    "declaration":  true,
+    "declarationDir": "dist",
+    "moduleResolution": "Node",
+    "lib": ["es2015", "DOM"]                   
+     }
+}
