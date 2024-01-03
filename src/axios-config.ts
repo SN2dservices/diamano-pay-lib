@@ -19,6 +19,7 @@ const globalConfig: RetryConfig = {
 export class AxiosConfig {
   customAxios: Axios;
   token: TokenResponse;
+  private accessToken: string;
   TOKEN_PATH = 'oauth2/token';
   private constructor(
     private clientSecret: string,
@@ -39,18 +40,29 @@ export class AxiosConfig {
     production: boolean,
   ) {
     const config = new AxiosConfig(clientSecret, clientId, production);
-    config.requestInterceptor();
-    config.responseInterceptor();
+    config.requestInterceptor(false);
+    config.responseInterceptor(false);
     await config.getToken();
     return config;
   }
+  static async initWithToken(token: string, production: boolean) {
+    const config = new AxiosConfig(null, null, production);
+    config.requestInterceptor(true);
+    config.responseInterceptor(true);
+    config.accessToken = token;
+    return config;
+  }
 
-  requestInterceptor() {
+  requestInterceptor(withAccessToken: boolean) {
     this.customAxios.interceptors.request.use(
       async (config: AxiosRequestConfig) => {
         if (config.url && !config.url.includes(this.TOKEN_PATH)) {
           config.headers['Authorization'] = `Bearer ${
-            this.token ? this.token.accessToken : ''
+            withAccessToken
+              ? this.accessToken
+              : this.token
+              ? this.token.accessToken
+              : ''
           }`;
         }
         return config;
@@ -65,7 +77,7 @@ export class AxiosConfig {
     );
   }
 
-  responseInterceptor() {
+  responseInterceptor(withAccessToken: boolean) {
     this.customAxios.interceptors.response.use(
       (response: AxiosResponse) => {
         return response;
@@ -81,7 +93,9 @@ export class AxiosConfig {
           setTimeout(async () => {
             if (error.response.status === 401) {
               try {
-                await this.getToken();
+                if (!withAccessToken) {
+                  await this.getToken();
+                }
               } catch (error) {
                 console.log('An error occur while getting token ', error);
               }
@@ -107,6 +121,7 @@ export class AxiosConfig {
       );
       this.token = result.data;
     } catch (error) {
+      console.log('Error when getting token', error.message);
       throw Error(error.message);
     }
   }

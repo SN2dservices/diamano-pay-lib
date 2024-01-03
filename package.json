@@ -1,6 +1,6 @@
 {
   "name": "@2dservices/diamano-pay-lib",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Cette librarie permet d'accèder à l'API de diamano pay",
   "main": "./dist/index.js",
   "files": [
@@ -12,7 +12,8 @@
     "build": "npm run clean && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "publish:next": "npm run build && npm publish  --access=public",
-    "run-example": "tsc --rootDir=example"
+    "build-example": "rimraf __example && tsc --project tsconfig-test.json",
+    "run-example": "node __example/index.js"
   },
   "author": "2dservices",
   "license": "ISC",

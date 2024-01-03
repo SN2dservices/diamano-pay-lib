@@ -20,6 +20,12 @@ export class DiamanoPayAPI {
     diamanoPayAPI._axios = axiosConfig.getAxios();
     return diamanoPayAPI;
   }
+  static async initWithToken(token: string, production: boolean) {
+    const diamanoPayAPI = new DiamanoPayAPI();
+    const axiosConfig = await AxiosConfig.initWithToken(token, production);
+    diamanoPayAPI._axios = axiosConfig.getAxios();
+    return diamanoPayAPI;
+  }
   newApi() {
     return new Api(this._axios);
   }

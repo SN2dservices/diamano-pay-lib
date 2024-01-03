@@ -1,17 +1,17 @@
-import { DiamanoPayAPI } from '../src/diamano-pay';
-import { Api } from '../src/api';
-import { Page } from '../src/page';
 import {
+  DiamanoPayAPI,
+  Api,
+  Page,
   CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
   PaymentTokenBody,
   QrCodePaymentRequestBody,
-} from '../src/type';
+} from '../dist';
 
 class Example {
-  private clientId = 'ci_test_diamano_pay_sn_e60e0e9d6dcd4d3f9c5c7accf113aea3';
+  private clientId = 'ci_test_diamano_pay_sn_141d9a95a6094d7e8522dd293e34f396';
   private clientSecret =
-    'cs_test_diamano_pay_sn_08e95bf31a16401f82b2cd66ca7521ff';
+    'cs_test_diamano_pay_sn_56b8c933b1f24e658dc741e936509a36';
   private api: Api;
   private page: Page;
   private prod = false;
@@ -25,6 +25,10 @@ class Example {
       this.clientId,
       this.prod,
     );
+    // const diamanoPayAPI = await DiamanoPayAPI.initWithToken(
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkNmRjOWQ1LTRhODQtNDFhOS05YzI2LTExYTljMDY0Mzc0OCIsInNjb3BlIjpbImFwaS5vcmFuZ2VfbW9uZXkub25lX3N0ZXAiXSwiaWF0IjoxNzA0Mjk0OTUwLCJleHAiOjE3NjQ3MTYzOTl9.6u1-a36Z87l5-7WMqcfSTs3SPDSVVcgjVQOjQB1SMKM',
+    //   this.prod,
+    // );
     // Création d'un instance Api
     this.api = diamanoPayAPI.newApi();
     // Création d'un instance Page
@@ -98,4 +102,6 @@ class Example {
 }
 
 const example = new Example();
-example.payByOrangeMoneyQrCode();
+setTimeout(() => {
+  example.payByOrangeMoneyQrCode();
+}, 5000);

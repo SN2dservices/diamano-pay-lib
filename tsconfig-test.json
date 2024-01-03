@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",                          
+    "outDir": "__example",
+    "esModuleInterop": true,
+    "declaration":  false,
+    "moduleResolution": "Node",
+    "lib": ["es2015", "DOM"]
+  },
+  "include": ["example/**/*"],
+  "exclude": ["node_modules", "__tests__", "src"]                   
+}
