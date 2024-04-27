@@ -4,7 +4,7 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "declaration":  true,
-    "declarationDir": "dist",
+    "declarationDir": "dist/types",
     "moduleResolution": "Node",
     "lib": ["es2015", "DOM"]
   },

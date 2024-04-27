@@ -4,7 +4,7 @@ import axios, {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { PRODUCTION_BASE_URL, SANDBOX_BASE_URL } from './constants';
+import { PRODUCTION_BASE_URL } from './constants';
 import { TokenResponse } from './type';
 
 interface RetryConfig extends AxiosRequestConfig {
@@ -21,32 +21,24 @@ export class AxiosConfig {
   token: TokenResponse;
   private accessToken: string;
   TOKEN_PATH = 'oauth2/token';
-  private constructor(
-    private clientSecret: string,
-    private clientId: string,
-    production: boolean,
-  ) {
+  private constructor(private clientSecret: string, private clientId: string) {
     this.customAxios = axios.create({
-      baseURL: production ? PRODUCTION_BASE_URL : SANDBOX_BASE_URL,
+      baseURL: PRODUCTION_BASE_URL,
       headers: {
         'Accept-Encoding': 'identity',
       },
       ...globalConfig,
     });
   }
-  static async init(
-    clientSecret: string,
-    clientId: string,
-    production: boolean,
-  ) {
-    const config = new AxiosConfig(clientSecret, clientId, production);
+  static async init(clientSecret: string, clientId: string) {
+    const config = new AxiosConfig(clientSecret, clientId);
     config.requestInterceptor(false);
     config.responseInterceptor(false);
     await config.getToken();
     return config;
   }
-  static async initWithToken(token: string, production: boolean) {
-    const config = new AxiosConfig(null, null, production);
+  static async initWithToken(token: string) {
+    const config = new AxiosConfig(null, null);
     config.requestInterceptor(true);
     config.responseInterceptor(true);
     config.accessToken = token;
@@ -89,7 +81,7 @@ export class AxiosConfig {
           return Promise.reject(error?.response?.data);
         }
         config.retry -= 1;
-        const delayRetryRequest = new Promise<void>((resolve) => {
+        const delayRetryRequest = new Promise<void>((resolve, reject) => {
           setTimeout(async () => {
             if (error.response.status === 401) {
               try {
@@ -99,8 +91,14 @@ export class AxiosConfig {
               } catch (error) {
                 console.log('An error occur while getting token ', error);
               }
+            } else if (
+              error.response.status >= 200 &&
+              error.response.status < 400
+            ) {
+              resolve();
+            } else {
+              reject(error.response.data);
             }
-            resolve();
           }, config.retryDelay || 1000);
         });
         return delayRetryRequest.then(() => axios(config));

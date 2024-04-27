@@ -1,8 +1,9 @@
 {
   "name": "@2dservices/diamano-pay-lib",
-  "version": "1.1.2",
+  "version": "1.1.6",
   "description": "Cette librarie permet d'accèder à l'API de diamano pay",
-  "main": "./dist/index.js",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "Readme.md",
     "dist"
@@ -18,6 +19,7 @@
   "author": "2dservices",
   "license": "ISC",
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^18.11.9",
     "typescript": "^4.9.3"
   },

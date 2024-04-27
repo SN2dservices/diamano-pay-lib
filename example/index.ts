@@ -1,12 +1,12 @@
+import { DiamanoPayAPI } from '../dist';
 import {
-  DiamanoPayAPI,
   Api,
   Page,
-  CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
-  PaymentTokenBody,
   QrCodePaymentRequestBody,
-} from '../dist';
+  CardPaymentRequestBody,
+  PaymentTokenBody,
+} from '../dist/types';
 
 class Example {
   private clientId = 'ci_test_diamano_pay_sn_141d9a95a6094d7e8522dd293e34f396';
@@ -23,7 +23,6 @@ class Example {
     const diamanoPayAPI = await DiamanoPayAPI.init(
       this.clientSecret,
       this.clientId,
-      this.prod,
     );
     // const diamanoPayAPI = await DiamanoPayAPI.initWithToken(
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkNmRjOWQ1LTRhODQtNDFhOS05YzI2LTExYTljMDY0Mzc0OCIsInNjb3BlIjpbImFwaS5vcmFuZ2VfbW9uZXkub25lX3N0ZXAiXSwiaWF0IjoxNzA0Mjk0OTUwLCJleHAiOjE3NjQ3MTYzOTl9.6u1-a36Z87l5-7WMqcfSTs3SPDSVVcgjVQOjQB1SMKM',
