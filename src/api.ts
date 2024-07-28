@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
+import { AxiosInstance } from 'axios';
 import {
   CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
@@ -10,7 +10,7 @@ import {
 } from './type';
 
 export class Api {
-  constructor(private _axios: Axios) {}
+  constructor(private _axios: AxiosInstance) {}
 
   async payByOrangeMoneyOneStep(body: OneStepPaymentRequestBodyDto) {
     try {

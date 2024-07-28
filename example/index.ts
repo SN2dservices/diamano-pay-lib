@@ -1,12 +1,10 @@
-import { DiamanoPayAPI } from '../dist';
+import { Api, DiamanoPayAPI, Page } from '../dist';
 import {
-  Api,
-  Page,
-  OneStepPaymentRequestBodyDto,
-  QrCodePaymentRequestBody,
   CardPaymentRequestBody,
+  OneStepPaymentRequestBodyDto,
   PaymentTokenBody,
-} from '../dist/types';
+  QrCodePaymentRequestBody,
+} from '../dist/type';
 
 class Example {
   private clientId = 'ci_test_diamano_pay_sn_141d9a95a6094d7e8522dd293e34f396';
@@ -14,7 +12,6 @@ class Example {
     'cs_test_diamano_pay_sn_56b8c933b1f24e658dc741e936509a36';
   private api: Api;
   private page: Page;
-  private prod = false;
   constructor() {
     this.init();
   }

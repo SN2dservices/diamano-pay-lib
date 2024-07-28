@@ -1,8 +1,8 @@
-import { Axios } from 'axios';
+import { AxiosInstance } from 'axios';
 import { PaymentTokenBody, PaymentTokenResponse } from './type';
 
 export class Page {
-  constructor(private _axios: Axios) {}
+  constructor(private _axios: AxiosInstance) {}
 
   async getPaymentToken(body: PaymentTokenBody) {
     try {

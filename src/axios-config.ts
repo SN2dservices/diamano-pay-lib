@@ -1,8 +1,8 @@
 import axios, {
-  Axios,
   AxiosRequestConfig,
   AxiosResponse,
   AxiosError,
+  AxiosInstance,
 } from 'axios';
 import { PRODUCTION_BASE_URL } from './constants';
 import { TokenResponse } from './type';
@@ -17,7 +17,7 @@ const globalConfig: RetryConfig = {
   retryDelay: 1000,
 };
 export class AxiosConfig {
-  customAxios: Axios;
+  customAxios: AxiosInstance;
   token: TokenResponse;
   private accessToken: string;
   TOKEN_PATH = 'oauth2/token';

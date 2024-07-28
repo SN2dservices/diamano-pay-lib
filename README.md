@@ -36,9 +36,9 @@ import {
 class Example {
   private clientId = process.env.CLIENT_ID;
   private clientSecret = process.env.CLIENT_SECRET;
+  private token = process.env.TOKEN;
   private api: Api;
   private page: Page;
-  private prod = false;
   constructor() {
     this.init();
   }
@@ -46,9 +46,10 @@ class Example {
     // Initialisation
     const diamanoPayAPI = await DiamanoPayAPI.init(
       this.clientSecret,
-      this.clientId,
-      this.prod,
+      this.clientId
     );
+    // Oubien avec un token
+    const diamanoPayAPIWithToken = await DiamanoPayAPI.initWithToken(this.token);
     // Création d'un instance Api
     this.api = diamanoPayAPI.newApi();
     // Création d'un instance Page

@@ -1,10 +1,10 @@
-import axios, { Axios } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { AxiosConfig } from './axios-config';
 import { Api } from './api';
 import { Page } from './page';
 
 export class DiamanoPayAPI {
-  private _axios: Axios;
+  private _axios: AxiosInstance;
   private constructor() {}
   static async init(clientSecret: string, clientId: string) {
     const diamanoPayAPI = new DiamanoPayAPI();
