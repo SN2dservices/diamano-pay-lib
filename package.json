@@ -1,6 +1,6 @@
 {
   "name": "@2dservices/diamano-pay-lib",
-  "version": "1.1.9",
+  "version": "2.0.0",
   "description": "Cette librarie permet d'accèder à l'API de diamano pay",
   "main": "dist/index.js",
   "types": "dist/",

@@ -57,4 +57,14 @@ export class Api {
       throw error;
     }
   }
+  async refund(transactionId: string) {
+    try {
+      const result = await this._axios.post<boolean>(
+        `/api/payout/refund/${transactionId}`,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
