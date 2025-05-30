@@ -1,4 +1,4 @@
-import { Api, DiamanoPayAPI, Page } from '../dist';
+import { Api, DiamanoPayAPI, Page, PaymentServiceTypeEnum } from '../dist';
 import {
   CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
@@ -17,14 +17,13 @@ class Example {
   }
   private async init() {
     // Initialisation
-    const diamanoPayAPI = await DiamanoPayAPI.init(
-      this.clientSecret,
-      this.clientId,
-    );
-    // const diamanoPayAPI = await DiamanoPayAPI.initWithToken(
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkNmRjOWQ1LTRhODQtNDFhOS05YzI2LTExYTljMDY0Mzc0OCIsInNjb3BlIjpbImFwaS5vcmFuZ2VfbW9uZXkub25lX3N0ZXAiXSwiaWF0IjoxNzA0Mjk0OTUwLCJleHAiOjE3NjQ3MTYzOTl9.6u1-a36Z87l5-7WMqcfSTs3SPDSVVcgjVQOjQB1SMKM',
-    //   this.prod,
+    // const diamanoPayAPI = await DiamanoPayAPI.init(
+    //   this.clientSecret,
+    //   this.clientId,
     // );
+    const diamanoPayAPI = await DiamanoPayAPI.initWithToken(
+      '683842b922f713e0686a78c4',
+    );
     // Création d'un instance Api
     this.api = diamanoPayAPI.newApi();
     // Création d'un instance Page
@@ -85,6 +84,10 @@ class Example {
   async getPaymentPage() {
     const body: PaymentTokenBody = {
       amount: 1000,
+      paymentMethods: [
+        PaymentServiceTypeEnum.ORANGE_MONEY,
+        PaymentServiceTypeEnum.WAVE,
+      ],
       description: "Achat d'un chargeur",
       callbackCancelUrl: 'https://www.maboutique.sn?cancel=true', // url de retour après annulation du client
       callbackSuccessUrl: 'https://www.maboutique.sn?success=ok', // url de retour après paiement

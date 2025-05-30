@@ -10,6 +10,8 @@ Cette librairie a pour objectif de simplifier l'accès à la plateforme de paiem
   - Demande de paiement orange money avec QR CODE.
   - Demande de paiement wave avec QR CODE.
   - Récupération d'un token de paiement avec Stripe pour les cartes bancaires.
+  - Remboursement d'une transaction.
+  - Exécution d'un paiement sortant (payout).
 
 - La partie Page de paiement diamano pay
   - Permet d'obtenir un lien de paiement de diamano pay.
@@ -30,6 +32,7 @@ import {
   CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
   PaymentTokenBody,
+  PayoutRequestBody,
   QrCodePaymentRequestBody,
 } from '@2dservices/diamano-pay-lib/type';
 
@@ -118,6 +121,25 @@ class Example {
     };
     const res = await this.page.getPaymentToken(body);
     console.log(res);
+    return res;
+  }
+
+  async refundTransaction() {
+    const transactionId = 'ID_DE_LA_TRANSACTION_A_REMBOURSER'; // Remplacez par un ID de transaction réel
+    const res = await this.api.refund(transactionId);
+    console.log(res); // Devrait être true si le remboursement a réussi
+    return res;
+  }
+
+  async makePayout() {
+    const transactionId = 'ID_DE_TRANSACTION_POUR_PAYOUT'; // Remplacez par un ID de transaction réel pour le payout
+    const body: PayoutRequestBody = {
+      waveMobile: '+221771234567', // il faut include l'indicatif pour wave
+      orangeMoneyMobile: '771234567',
+      name: 'Nom du bénéficiaire',
+    };
+    const res = await this.api.payout(transactionId, body);
+    console.log(res); // Devrait être true si le payout a réussi
     return res;
   }
 }

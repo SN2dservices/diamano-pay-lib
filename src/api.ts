@@ -4,6 +4,7 @@ import {
   OneStepPaymentRequestBodyDto,
   OneStepPaymentResponseDto,
   OrangeMoneyQrCodeResponseDto,
+  PayoutRequestBody,
   QrCodePaymentRequestBody,
   StripeResponseDto,
   WaveQrCodeResponseDto,
@@ -61,6 +62,18 @@ export class Api {
     try {
       const result = await this._axios.post<boolean>(
         `/api/payout/refund/${transactionId}`,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async payout(transactionId: string, body: PayoutRequestBody) {
+    try {
+      const result = await this._axios.post<boolean>(
+        `/api/payout/payout/${transactionId}`,
+        body,
       );
       return result.data;
     } catch (error) {

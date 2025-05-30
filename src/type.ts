@@ -64,3 +64,9 @@ export class PaymentTokenResponse {
   expiredAt: string;
   paymentUrl: string;
 }
+
+export interface PayoutRequestBody {
+  waveMobile: string;
+  orangeMoneyMobile: string;
+  name: string;
+}
