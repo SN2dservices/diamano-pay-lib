@@ -12,6 +12,7 @@ Cette librairie a pour objectif de simplifier l'accès à la plateforme de paiem
   - Récupération d'un token de paiement avec Stripe pour les cartes bancaires.
   - Remboursement d'une transaction.
   - Exécution d'un paiement sortant (payout) avec intermédiaire.
+  - Exécution d'un paiement sortant (payout) vers deux bénéficiaires.
   - Exécution d'un paiement sortant (payout).
 
 - La partie Page de paiement diamano pay
@@ -35,6 +36,7 @@ import {
   PaymentTokenBody,
   PayoutRequestBody,
   PayoutWithIntermediaryRequestBody,
+  PayoutToTwoBeneficiariesRequestBody,
   QrCodePaymentRequestBody,
 } from '@2dservices/diamano-pay-lib/type';
 
@@ -157,6 +159,22 @@ class Example {
     };
     const res = await this.api.payoutWithIntermediary(transactionId, body);
     console.log(res); // Devrait être true si le payout avec intermédiaire a réussi
+    return res;
+  }
+
+  async makePayoutToTwoBeneficiaries() {
+    const transactionId = 'ID_DE_TRANSACTION_POUR_PAYOUT_DEUX_BENEFICIAIRES'; // Remplacez par un ID de transaction réel
+    const body: PayoutToTwoBeneficiariesRequestBody = {
+      beneficiary1WaveMobile: '+221771111111', // Indicatif pays requis pour Wave
+      beneficiary1Name: 'Nom du bénéficiaire 1',
+      beneficiary1Percentage: 60, // Pourcentage pour le bénéficiaire 1 (ex: 60 pour 60%)
+      beneficiary2OrangeMoneyMobile: '772222222',
+      beneficiary2Name: 'Nom du bénéficiaire 2',
+      beneficiary2Percentage: 40, // Pourcentage pour le bénéficiaire 2 (ex: 40 pour 40%)
+      // Assurez-vous que la somme des pourcentages est égale à 100
+    };
+    const res = await this.api.payoutToTwoBeneficiaries(transactionId, body);
+    console.log(res); // Devrait être true si le payout vers deux bénéficiaires a réussi
     return res;
   }
 }

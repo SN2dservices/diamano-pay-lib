@@ -80,3 +80,14 @@ export interface PayoutWithIntermediaryRequestBody {
   intermediaryOrangeMoneyMobile?: string;
   intermediaryName?: string;
 }
+
+export interface PayoutToTwoBeneficiariesRequestBody {
+  beneficiary1WaveMobile?: string;
+  beneficiary1OrangeMoneyMobile?: string;
+  beneficiary1Name?: string;
+  beneficiary1Percentage: number;
+  beneficiary2WaveMobile?: string;
+  beneficiary2OrangeMoneyMobile?: string;
+  beneficiary2Name?: string;
+  beneficiary2Percentage: number;
+}

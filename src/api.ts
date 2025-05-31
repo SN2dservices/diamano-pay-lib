@@ -6,6 +6,7 @@ import {
   OrangeMoneyQrCodeResponseDto,
   PayoutWithIntermediaryRequestBody,
   PayoutRequestBody,
+  PayoutToTwoBeneficiariesRequestBody,
   QrCodePaymentRequestBody,
   StripeResponseDto,
   WaveQrCodeResponseDto,
@@ -89,6 +90,21 @@ export class Api {
     try {
       const result = await this._axios.post<boolean>(
         `/api/payout/payoutWithIntermediary/${transactionId}`,
+        body,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async payoutToTwoBeneficiaries(
+    transactionId: string,
+    body: PayoutToTwoBeneficiariesRequestBody,
+  ) {
+    try {
+      const result = await this._axios.post<boolean>(
+        `/api/payout/payoutToTwoBeneficiaries/${transactionId}`,
         body,
       );
       return result.data;
