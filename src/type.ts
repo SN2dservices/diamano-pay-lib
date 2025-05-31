@@ -70,3 +70,13 @@ export interface PayoutRequestBody {
   orangeMoneyMobile: string;
   name: string;
 }
+
+export interface PayoutWithIntermediaryRequestBody {
+  mainWaveMobile?: string;
+  mainOrangeMoneyMobile?: string;
+  mainName?: string;
+  intermediaryPercentage: number;
+  intermediaryWaveMobile?: string;
+  intermediaryOrangeMoneyMobile?: string;
+  intermediaryName?: string;
+}

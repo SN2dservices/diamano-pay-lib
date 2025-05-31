@@ -4,6 +4,7 @@ import {
   OneStepPaymentRequestBodyDto,
   OneStepPaymentResponseDto,
   OrangeMoneyQrCodeResponseDto,
+  PayoutWithIntermediaryRequestBody,
   PayoutRequestBody,
   QrCodePaymentRequestBody,
   StripeResponseDto,
@@ -73,6 +74,21 @@ export class Api {
     try {
       const result = await this._axios.post<boolean>(
         `/api/payout/payout/${transactionId}`,
+        body,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async payoutWithIntermediary(
+    transactionId: string,
+    body: PayoutWithIntermediaryRequestBody,
+  ) {
+    try {
+      const result = await this._axios.post<boolean>(
+        `/api/payout/payoutWithIntermediary/${transactionId}`,
         body,
       );
       return result.data;

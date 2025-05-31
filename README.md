@@ -11,6 +11,7 @@ Cette librairie a pour objectif de simplifier l'accès à la plateforme de paiem
   - Demande de paiement wave avec QR CODE.
   - Récupération d'un token de paiement avec Stripe pour les cartes bancaires.
   - Remboursement d'une transaction.
+  - Exécution d'un paiement sortant (payout) avec intermédiaire.
   - Exécution d'un paiement sortant (payout).
 
 - La partie Page de paiement diamano pay
@@ -33,6 +34,7 @@ import {
   OneStepPaymentRequestBodyDto,
   PaymentTokenBody,
   PayoutRequestBody,
+  PayoutWithIntermediaryRequestBody,
   QrCodePaymentRequestBody,
 } from '@2dservices/diamano-pay-lib/type';
 
@@ -140,6 +142,21 @@ class Example {
     };
     const res = await this.api.payout(transactionId, body);
     console.log(res); // Devrait être true si le payout a réussi
+    return res;
+  }
+
+  async makePayoutWithIntermediary() {
+    const transactionId = 'ID_DE_TRANSACTION_POUR_PAYOUT_INTERMEDIAIRE'; // Remplacez par un ID de transaction réel
+    const body: PayoutWithIntermediaryRequestBody = {
+      mainWaveMobile: '+221771234567', // Indicatif pays requis pour Wave
+      mainName: 'Nom du bénéficiaire principal',
+      intermediaryPercentage: 10, // Pourcentage pour l'intermédiaire (ex: 10 pour 10%)
+      intermediaryWaveMobile: '+221761234567', // Indicatif pays requis pour Wave
+      intermediaryName: 'Nom de l\'intermédiaire',
+      // Vous pouvez également spécifier mainOrangeMoneyMobile et intermediaryOrangeMoneyMobile si besoin
+    };
+    const res = await this.api.payoutWithIntermediary(transactionId, body);
+    console.log(res); // Devrait être true si le payout avec intermédiaire a réussi
     return res;
   }
 }
