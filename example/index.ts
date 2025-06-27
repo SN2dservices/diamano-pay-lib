@@ -3,6 +3,7 @@ import {
   CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
   PaymentTokenBody,
+  CreatePayoutDto,
   CreateBatchPayoutDto,
   QrCodePaymentRequestBody,
 } from '../dist/type';
@@ -100,6 +101,25 @@ class Example {
     return res;
   }
 
+  async makePayout() {
+    const body: CreatePayoutDto = {
+      amount: 100,
+      mobile: '771234567',
+      provider: 'WAVE',
+      name: 'Test Payout',
+      clientReference: 'test-payout-01',
+      description: 'Test de paiement unitaire',
+    };
+    try {
+      console.log('Initiating a single payout...');
+      const res = await this.api.payout(body);
+      console.log('Payout Response:', res);
+      return res;
+    } catch (error) {
+      console.error('Error during payout:', error);
+    }
+  }
+
   async createBatchPayout() {
     const body: CreateBatchPayoutDto = {
       description: 'Paiements de test en lot',
@@ -152,5 +172,5 @@ class Example {
 
 const example = new Example();
 setTimeout(() => {
-  example.createBatchPayout();
+  example.makePayout();
 }, 5000);

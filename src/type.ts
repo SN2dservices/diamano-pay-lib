@@ -68,33 +68,21 @@ export class PaymentTokenResponse {
   paymentUrl: string;
 }
 
-export interface PayoutRequestBody {
-  waveMobile: string;
-  orangeMoneyMobile: string;
-  name: string;
+export interface CreatePayoutDto {
+  amount: number;
+  mobile: string;
+  provider: PayoutProvider;
+  name?: string;
+  description?: string;
+  clientReference?: string;
 }
 
-export interface PayoutWithIntermediaryRequestBody {
-  mainWaveMobile?: string;
-  mainOrangeMoneyMobile?: string;
-  mainName?: string;
-  intermediaryPercentage: number;
-  intermediaryWaveMobile?: string;
-  intermediaryOrangeMoneyMobile?: string;
-  intermediaryName?: string;
+export interface PayoutResponseDto {
+  success: boolean;
+  message: string;
+  transactionId: string;
+  providerTransactionId: string;
 }
-
-export interface PayoutToTwoBeneficiariesRequestBody {
-  beneficiary1WaveMobile?: string;
-  beneficiary1OrangeMoneyMobile?: string;
-  beneficiary1Name?: string;
-  beneficiary1Percentage: number;
-  beneficiary2WaveMobile?: string;
-  beneficiary2OrangeMoneyMobile?: string;
-  beneficiary2Name?: string;
-  beneficiary2Percentage: number;
-}
-
 export type PayoutProvider = 'WAVE' | 'ORANGE_MONEY';
 export type BatchStatus =
   | 'PENDING'

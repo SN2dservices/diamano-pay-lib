@@ -4,15 +4,14 @@ import {
   OneStepPaymentRequestBodyDto,
   OneStepPaymentResponseDto,
   OrangeMoneyQrCodeResponseDto,
-  PayoutWithIntermediaryRequestBody,
-  PayoutRequestBody,
-  PayoutToTwoBeneficiariesRequestBody,
   QrCodePaymentRequestBody,
   StripeResponseDto,
   WaveQrCodeResponseDto,
   CreateBatchPayoutDto,
   BatchCreationResponseItem,
   BatchPayoutStatusDto,
+  CreatePayoutDto,
+  PayoutResponseDto,
 } from './type';
 
 export class Api {
@@ -74,40 +73,10 @@ export class Api {
     }
   }
 
-  async payout(transactionId: string, body: PayoutRequestBody) {
+  async payout(body: CreatePayoutDto) {
     try {
-      const result = await this._axios.post<boolean>(
-        `/api/payout/payout/${transactionId}`,
-        body,
-      );
-      return result.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async payoutWithIntermediary(
-    transactionId: string,
-    body: PayoutWithIntermediaryRequestBody,
-  ) {
-    try {
-      const result = await this._axios.post<boolean>(
-        `/api/payout/payoutWithIntermediary/${transactionId}`,
-        body,
-      );
-      return result.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async payoutToTwoBeneficiaries(
-    transactionId: string,
-    body: PayoutToTwoBeneficiariesRequestBody,
-  ) {
-    try {
-      const result = await this._axios.post<boolean>(
-        `/api/payout/payoutToTwoBeneficiaries/${transactionId}`,
+      const result = await this._axios.post<PayoutResponseDto>(
+        `/api/payout`,
         body,
       );
       return result.data;

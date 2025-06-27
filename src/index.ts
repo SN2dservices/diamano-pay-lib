@@ -9,9 +9,6 @@ import {
   OneStepPaymentResponseDto,
   OrangeMoneyQrCodeResponseDto,
   PaymentTokenBody,
-  PayoutRequestBody,
-  PayoutWithIntermediaryRequestBody,
-  PayoutToTwoBeneficiariesRequestBody,
   PaymentTokenResponse,
   QrCodePaymentRequestBody,
   StripeResponseDto,
@@ -22,6 +19,8 @@ import {
   BatchPayoutStatusDto,
   BatchPayoutItem,
   PayoutStatusInBatch,
+  CreatePayoutDto,
+  PayoutResponseDto,
 } from './type';
 
 export {
@@ -35,9 +34,6 @@ export {
   OneStepPaymentResponseDto,
   OrangeMoneyQrCodeResponseDto,
   PaymentTokenBody,
-  PayoutRequestBody,
-  PayoutWithIntermediaryRequestBody,
-  PayoutToTwoBeneficiariesRequestBody,
   PaymentTokenResponse,
   QrCodePaymentRequestBody,
   StripeResponseDto,
@@ -48,4 +44,6 @@ export {
   BatchPayoutStatusDto,
   BatchPayoutItem,
   PayoutStatusInBatch,
+  CreatePayoutDto,
+  PayoutResponseDto,
 };
