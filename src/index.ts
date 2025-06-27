@@ -17,6 +17,11 @@ import {
   StripeResponseDto,
   TokenResponse,
   WaveQrCodeResponseDto,
+  CreateBatchPayoutDto,
+  BatchCreationResponseItem,
+  BatchPayoutStatusDto,
+  BatchPayoutItem,
+  PayoutStatusInBatch,
 } from './type';
 
 export {
@@ -38,4 +43,9 @@ export {
   StripeResponseDto,
   TokenResponse,
   WaveQrCodeResponseDto,
+  CreateBatchPayoutDto,
+  BatchCreationResponseItem,
+  BatchPayoutStatusDto,
+  BatchPayoutItem,
+  PayoutStatusInBatch,
 };

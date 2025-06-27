@@ -13,6 +13,7 @@ Cette librairie a pour objectif de simplifier l'accès à la plateforme de paiem
   - Remboursement d'une transaction.
   - Exécution d'un paiement sortant (payout) avec intermédiaire.
   - Exécution d'un paiement sortant (payout) vers deux bénéficiaires.
+  - Exécution de paiements en lot (batch payout) et suivi de leur statut.
   - Exécution d'un paiement sortant (payout).
 
 - La partie Page de paiement diamano pay
@@ -37,6 +38,7 @@ import {
   PayoutRequestBody,
   PayoutWithIntermediaryRequestBody,
   PayoutToTwoBeneficiariesRequestBody,
+  CreateBatchPayoutDto,
   QrCodePaymentRequestBody,
 } from '@2dservices/diamano-pay-lib/type';
 
@@ -175,6 +177,39 @@ class Example {
     };
     const res = await this.api.payoutToTwoBeneficiaries(transactionId, body);
     console.log(res); // Devrait être true si le payout vers deux bénéficiaires a réussi
+    return res;
+  }
+
+  async createBatchPayout() {
+    const body: CreateBatchPayoutDto = {
+      description: "Paiements salaires Mai 2024",
+      callbackUrl: "https://votresite.com/webhook/payout-status",
+      payouts: [
+        {
+          amount: 50000,
+          mobile: "771112233",
+          provider: "WAVE",
+          name: "Fatou Diop",
+          clientReference: "SAL-FDIOP-MAI24"
+        },
+        {
+          amount: 75000,
+          mobile: "784445566",
+          provider: "ORANGE_MONEY",
+          name: "Abdoulaye Dia", // Le nom est optionnel pour Orange Money mais recommandé
+          clientReference: "SAL-ADIA-MAI24"
+        }
+      ]
+    };
+    const res = await this.api.createBatchPayout(body);
+    console.log(res); // Devrait retourner un tableau avec les informations des lots créés (dont batchId)
+    return res;
+  }
+
+  async getBatchStatus() {
+    const batchId = 'ID_DU_LOT_RECU_PRECEDEMMENT'; // Remplacez par un ID de lot réel
+    const res = await this.api.getBatchPayoutStatus(batchId);
+    console.log(res); // Devrait retourner le statut détaillé du lot
     return res;
   }
 }

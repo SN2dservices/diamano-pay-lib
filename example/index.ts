@@ -3,6 +3,7 @@ import {
   CardPaymentRequestBody,
   OneStepPaymentRequestBodyDto,
   PaymentTokenBody,
+  CreateBatchPayoutDto,
   QrCodePaymentRequestBody,
 } from '../dist/type';
 
@@ -98,9 +99,58 @@ class Example {
     console.log(res);
     return res;
   }
+
+  async createBatchPayout() {
+    const body: CreateBatchPayoutDto = {
+      description: 'Paiements de test en lot',
+      callbackUrl: 'https://mon-service.com/webhook',
+      payouts: [
+        {
+          amount: 100,
+          mobile: '771234567',
+          provider: 'WAVE',
+          name: 'Test Wave',
+          clientReference: 'test-wave-01',
+        },
+        {
+          amount: 200,
+          mobile: '771234568',
+          provider: 'ORANGE_MONEY',
+          name: 'Test OM',
+          clientReference: 'test-om-01',
+        },
+      ],
+    };
+    try {
+      const res = await this.api.createBatchPayout(body);
+      console.log('Réponse de la création du lot :', res);
+      // Nous pouvons utiliser le batchId retourné pour vérifier le statut
+      if (res && res.length > 0) {
+        // Attendons un peu avant de vérifier le statut pour laisser le temps au traitement de commencer
+        setTimeout(() => this.getBatchStatus(res[0].batchId), 15000);
+      }
+      return res;
+    } catch (error) {
+      console.error('Erreur lors de la création du lot :', error);
+    }
+  }
+
+  async getBatchStatus(batchId: string) {
+    try {
+      console.log(`Vérification du statut pour le lot : ${batchId}`);
+      const res = await this.api.getBatchPayoutStatus(batchId);
+      console.log('Statut du lot :', res);
+      return res;
+    } catch (error) {
+      console.error(
+        `Erreur lors de la récupération du statut du lot ${batchId} :`,
+        error,
+      );
+    }
+  }
 }
 
 const example = new Example();
 setTimeout(() => {
-  example.payByOrangeMoneyQrCode();
+  example.createBatchPayout();
 }, 5000);

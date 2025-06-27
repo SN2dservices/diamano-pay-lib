@@ -91,3 +91,54 @@ export interface PayoutToTwoBeneficiariesRequestBody {
   beneficiary2Name?: string;
   beneficiary2Percentage: number;
 }
+
+export type PayoutProvider = 'WAVE' | 'ORANGE_MONEY';
+export type BatchStatus =
+  | 'PENDING'
+  | 'PROCESSING'
+  | 'COMPLETED'
+  | 'PARTIALLY_COMPLETED'
+  | 'FAILED';
+export type PayoutStatus = 'PENDING' | 'SUCCESS' | 'FAILED';
+
+export interface BatchPayoutItem {
+  amount: number;
+  mobile: string;
+  provider: PayoutProvider;
+  name?: string;
+  clientReference?: string;
+}
+
+export interface CreateBatchPayoutDto {
+  description?: string;
+  callbackUrl?: string;
+  payouts: BatchPayoutItem[];
+}
+
+export interface BatchCreationResponseItem {
+  provider: PayoutProvider;
+  batchId: string;
+  providerBatchId: string;
+}
+
+export interface PayoutStatusInBatch {
+  clientReference?: string;
+  amount: number;
+  mobile: string;
+  name?: string;
+  provider: PayoutProvider;
+  status: PayoutStatus;
+  providerTransactionId?: string;
+  errorMessage?: string | null;
+  updatedAt: string;
+}
+
+export interface BatchPayoutStatusDto {
+  batchId: string;
+  status: BatchStatus;
+  provider: PayoutProvider;
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
+  payouts: PayoutStatusInBatch[];
+}

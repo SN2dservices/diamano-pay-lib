@@ -10,6 +10,9 @@ import {
   QrCodePaymentRequestBody,
   StripeResponseDto,
   WaveQrCodeResponseDto,
+  CreateBatchPayoutDto,
+  BatchCreationResponseItem,
+  BatchPayoutStatusDto,
 } from './type';
 
 export class Api {
@@ -106,6 +109,29 @@ export class Api {
       const result = await this._axios.post<boolean>(
         `/api/payout/payoutToTwoBeneficiaries/${transactionId}`,
         body,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createBatchPayout(body: CreateBatchPayoutDto) {
+    try {
+      const result = await this._axios.post<BatchCreationResponseItem[]>(
+        `/api/payout/batch`,
+        body,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getBatchPayoutStatus(batchId: string) {
+    try {
+      const result = await this._axios.get<BatchPayoutStatusDto>(
+        `/api/payout/batch/${batchId}/status`,
       );
       return result.data;
     } catch (error) {
