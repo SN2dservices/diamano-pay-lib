@@ -17,6 +17,7 @@ export class QrCodePaymentRequestBody {
   callbackSuccessUrl: string;
   callbackCancelUrl: string;
   description: string;
+  feeOnCustomer?: boolean;
 }
 export class CardPaymentRequestBody extends QrCodePaymentRequestBody {}
 export class OrangeMoneyQrCodeResponseDto {
@@ -40,6 +41,7 @@ export class OneStepPaymentRequestBodyDto {
   customerId: string;
   otp: string;
   description: string;
+  feeOnCustomer?: boolean;
 }
 export class OneStepPaymentResponseDto {
   transactionId?: string;
@@ -58,6 +60,7 @@ export class PaymentTokenBody {
   callbackCancelUrl: string;
   paymentMethods?: PaymentServiceTypeEnum[];
   description: string;
+  feeOnCustomer?: boolean;
 }
 export class PaymentTokenResponse {
   token: string;
