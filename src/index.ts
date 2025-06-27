@@ -21,6 +21,8 @@ import {
   PayoutStatusInBatch,
   CreatePayoutDto,
   PayoutResponseDto,
+  FeesCalculationRequestParams,
+  FeesCalculationResponse,
 } from './type';
 
 export {
@@ -46,4 +48,6 @@ export {
   PayoutStatusInBatch,
   CreatePayoutDto,
   PayoutResponseDto,
+  FeesCalculationRequestParams,
+  FeesCalculationResponse,
 };

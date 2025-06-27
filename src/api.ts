@@ -12,6 +12,8 @@ import {
   BatchPayoutStatusDto,
   CreatePayoutDto,
   PayoutResponseDto,
+  FeesCalculationRequestParams,
+  FeesCalculationResponse,
 } from './type';
 
 export class Api {
@@ -101,6 +103,18 @@ export class Api {
     try {
       const result = await this._axios.get<BatchPayoutStatusDto>(
         `/api/payout/batch/${batchId}/status`,
+      );
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async calculateFees(params: FeesCalculationRequestParams) {
+    try {
+      const result = await this._axios.get<FeesCalculationResponse>(
+        `/api/payment/fees`,
+        { params },
       );
       return result.data;
     } catch (error) {

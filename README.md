@@ -11,6 +11,7 @@ Cette librairie a pour objectif de simplifier l'accès à la plateforme de paiem
   - Demande de paiement wave avec QR CODE.
   - Récupération d'un token de paiement avec Stripe pour les cartes bancaires.
   - Remboursement d'une transaction.
+  - Calcul des frais de transaction.
   - Exécution de paiements en lot (batch payout) et suivi de leur statut.
   - Exécution d'un paiement sortant (payout).
 
@@ -131,6 +132,31 @@ class Example {
     const res = await this.api.refund(transactionId);
     console.log(res); // Devrait être true si le remboursement a réussi
     return res;
+  }
+
+  async calculateTransactionFees() {
+    // Cas 1: Frais à la charge du marchand
+    const paramsMerchantFees = { amount: 10000 };
+    const resMerchantFees = await this.api.calculateFees(paramsMerchantFees);
+    console.log('Frais à la charge du marchand:', resMerchantFees);
+    // {
+    //   baseAmount: 10000,
+    //   platformFee: 200, (exemple)
+    //   amountToChargeCustomer: 10000,
+    //   netAmountReceivedByMerchant: 9800 (exemple)
+    // }
+
+    // Cas 2: Frais à la charge du client
+    const paramsCustomerFees = { amount: 10000, feeOnCustomer: true };
+    const resCustomerFees = await this.api.calculateFees(paramsCustomerFees);
+    console.log('Frais à la charge du client:', resCustomerFees);
+    // {
+    //   baseAmount: 10000,
+    //   platformFee: 200, (exemple)
+    //   amountToChargeCustomer: 10200, (exemple)
+    //   netAmountReceivedByMerchant: 10000
+    // }
+    return { resMerchantFees, resCustomerFees };
   }
 
   async makePayout() {

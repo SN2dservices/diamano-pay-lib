@@ -83,6 +83,18 @@ export interface PayoutResponseDto {
   transactionId: string;
   providerTransactionId: string;
 }
+
+export interface FeesCalculationRequestParams {
+  amount: number;
+  feeOnCustomer?: boolean;
+}
+
+export interface FeesCalculationResponse {
+  baseAmount: number;
+  platformFee: number;
+  amountToChargeCustomer: number;
+  netAmountReceivedByMerchant: number;
+}
 export type PayoutProvider = 'WAVE' | 'ORANGE_MONEY';
 export type BatchStatus =
   | 'PENDING'

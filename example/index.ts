@@ -101,6 +101,24 @@ class Example {
     return res;
   }
 
+  async calculateFeesExample() {
+    try {
+      console.log('Calculating fees (merchant pays)...');
+      const merchantFees = await this.api.calculateFees({ amount: 10000 });
+      console.log('Merchant fees:', merchantFees);
+
+      console.log('Calculating fees (customer pays)...');
+      const customerFees = await this.api.calculateFees({
+        amount: 10000,
+        feeOnCustomer: true,
+      });
+      console.log('Customer fees:', customerFees);
+
+      return { merchantFees, customerFees };
+    } catch (error) {
+      console.error('Error calculating fees:', error);
+    }
+  }
   async makePayout() {
     const body: CreatePayoutDto = {
       amount: 100,
@@ -172,5 +190,5 @@ class Example {
 
 const example = new Example();
 setTimeout(() => {
-  example.makePayout();
+  example.calculateFeesExample();
 }, 5000);
